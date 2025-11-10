@@ -1,0 +1,31 @@
+#include <stdio.h>
+
+/**
+
+@brief Конвертирует вес из граммов в унции
+@param grams вес в граммах
+@return возвращает вес в унциях
+*/
+double convertO(const double grams);
+/**
+
+@brief Точка входа в программу
+
+@return возвращает 0, если программа выполнена корректно
+*/
+int main(void)
+{
+double grams = 0;
+printf("Введите вес в граммах: ");
+scanf("%lf", &grams);
+printf("Вес в граммах: %.2lf\n", grams);
+printf("Вес в унциях: %.2lf", convertToOunces(grams));
+
+return 0;
+}
+
+double convertO(const double grams)
+{
+const double GRAMS_PER_OUNCE = 28.3;
+return grams / GRAMS_PER_OUNCE;
+}
