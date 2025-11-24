@@ -17,7 +17,7 @@ int main(void)
 	printf("Введите вес в граммах: ");
 	scanf("%lf", &grams);
 	printf("Вес в граммах: %.2lf\n", grams);
-	printf("Вес в унциях: %.2lf", convertToOunces(grams));
+	printf("Вес в унциях: %.2lf", convertO(grams));
 
 	return 0;
 }
