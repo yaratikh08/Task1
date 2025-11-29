@@ -19,12 +19,11 @@ double calculateWork(const double I, const double U, const double t);
 double getValue();
 
 /**
-
 *@brief проверяет, что переменная положительная
 *@param value значение проверяемой переменной
 */
 
-void checkValue(const double value);
+void checkPositive(const double value);
 
 /**
 *@brief точка входа в программу
@@ -35,10 +34,10 @@ int main()
 {
 	printf("Введите значение силы тока в цепи (I, А): ");
 	double I = getValue();
-	checkValue(I);
+	checkPositive(I);
 	printf("Введите значение напряжения (U, В): ");
 	double U = getValue();
-	checkValue(U);
+	checkPositive(U);
 	double time_minutes = 20.0;
 	double work = calculateWork(I, U, time_minutes);
 
@@ -69,7 +68,7 @@ double getValue()
 	return value;
 }
 
-void checkValue(const double value)
+void checkPositive(const double value)
 {
 	if (value <= 0)
 	{
