@@ -27,8 +27,7 @@ double getPL(const double side1, const double side2);
 double getDiagonal(const double side1, const double side2);
 
 /**
- * @brief считывает значение,
- * введенное с клавиатуры с проверкой ввода
+ * @brief считывает значение с клавиатуры
  * @return считанное значение
  */
 double getValue();
@@ -37,7 +36,7 @@ double getValue();
  * @brief проверяет, что переменная положительная
  * @param value значение проверяемой переменной
  */
-void checkValue(const double value);
+void checkPositive(const double value);
 
 /**
  * @brief Точка входа в программу
@@ -47,9 +46,9 @@ int main(void)
 {
     printf("Введите стороны прямоугольника: ");
     double side1 = getValue();
-    checkValue(side1);
+    checkPositive(side1);
     double side2 = getValue();
-    checkValue(side2);
+    checkPositive(side2);
 
     printf("Периметр равен: %.2lf\n", getPerimeter(side1, side2));
     printf("Площадь равна: %.2lf\n", getPL(side1, side2));
@@ -84,7 +83,7 @@ double getValue()
     return value;
 }
 
-void checkValue(const double value)
+void checkPositive(const double value)
 {
     if (value <= 0)
     {
