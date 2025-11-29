@@ -3,18 +3,40 @@
 #include <math.h>
 
 /**
- * @brief вычисляет значение функции y в зависимости от x
- * @param x аргумент функции
- * @return возвращает вычисленное значение y
+ * @brief рассчитывает периметр прямоугольника
+ * @param side1 первая сторона прямоугольника
+ * @param side2 вторая сторона прямоугольника
+ * @return возвращает рассчитанный периметр
  */
-double calculateY(const double x);
+double getPerimeter(const double side1, const double side2);
 
 /**
- * @brief считывает значение,
- * введенное с клавиатуры с проверкой ввода
+ * @brief рассчитывает площадь прямоугольника
+ * @param side1 первая сторона прямоугольника
+ * @param side2 вторая сторона прямоугольника
+ * @return возвращает рассчитанную площадь
+ */
+double getPL(const double side1, const double side2);
+
+/**
+ * @brief рассчитывает длину диагонали прямоугольника
+ * @param side1 первая сторона прямоугольника
+ * @param side2 вторая сторона прямоугольника
+ * @return возвращает рассчитанную длину диагонали
+ */
+double getDiagonal(const double side1, const double side2);
+
+/**
+ * @brief считывает значение с клавиатуры
  * @return считанное значение
  */
 double getValue();
+
+/**
+ * @brief проверяет, что переменная положительная
+ * @param value значение проверяемой переменной
+ */
+void checkPositive(const double value);
 
 /**
  * @brief Точка входа в программу
@@ -22,27 +44,32 @@ double getValue();
  */
 int main(void)
 {
-    const double a = 2.3;
+    printf("Введите стороны прямоугольника: ");
+    double side1 = getValue();
+    checkPositive(side1);
+    double side2 = getValue();
+    checkPositive(side2);
 
-    printf("Введите значение x: ");
-    double x = getValue();
-
-    double y = calculateY(x);
-    printf("При x = %.2lf, y = %.6lf\n", x, y);
+    printf("Периметр равен: %.2lf\n", getPerimeter(side1, side2));
+    printf("Площадь равна: %.2lf\n", getPL(side1, side2));
+    printf("Длина диагонали равна: %.2lf\n", getDiagonal(side1, side2));
 
     return 0;
 }
 
-double calculateY(const double x)
+double getPerimeter(const double side1, const double side2)
 {
-    if (x < 2.0)
-    {
-        return 1.5 * pow(cos(x), 2);
-    }
-    else
-    {
-        return pow(x - 2.0, 2) + 6.0;
-    }
+    return 2 * (side1 + side2);
+}
+
+double getPL(const double side1, const double side2)
+{
+    return side1 * side2;
+}
+
+double getDiagonal(const double side1, const double side2)
+{
+    return sqrt(side1 * side1 + side2 * side2);
 }
 
 double getValue()
@@ -54,4 +81,13 @@ double getValue()
         abort();
     }
     return value;
+}
+
+void checkPositive(const double value)
+{
+    if (value <= 0)
+    {
+        printf("Значение должно быть положительным!\n");
+        abort();
+    }
 }
