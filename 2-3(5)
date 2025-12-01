@@ -1,0 +1,123 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+/**
+ * @brief Рассчитывает время для преодоления первой половины пути
+ * @param t1 время движения на первом участке, ч
+ * @param v1 скорость на первом участке, км/ч
+ * @param t2 время движения на втором участке, ч
+ * @param v2 скорость на втором участке, км/ч
+ * @param t3 время движения на третьем участке, ч
+ * @param v3 скорость на третьем участке, км/ч
+ * @return время для преодоления первой половины пути, ч
+ */
+double calcHalfWayTime(const double t1, const double v1, const double t2, const double v2, const double t3, const double v3);
+
+/**
+ * @brief Рассчитывает общий пройденный путь
+ * @param t1 время движения на первом участке, ч
+ * @param v1 скорость на первом участке, км/ч
+ * @param t2 время движения на втором участке, ч
+ * @param v2 скорость на втором участке, км/ч
+ * @param t3 время движения на третьем участке, ч
+ * @param v3 скорость на третьем участке, км/ч
+ * @return общий пройденный путь, км
+ */
+double calcTotalPath(const double t1, const double v1, const double t2, const double v2, const double t3, const double v3);
+
+/**
+ * @brief считывает значение, введённое с клавиатуры, и проверяет корректность ввода.
+ * @return возвращает функцию назад
+ */
+double getValue(void);
+
+/**
+ * @brief Точка входа в программу
+ * @return 0, если программа выполнена корректно, иначе 1
+ */
+int main(void) 
+{
+    printf("Введите время t1 (часы):\n");
+    double t1 = getValue();
+    printf("Введите скорость v1 (км/ч):\n");
+    double v1 = getValue();
+    
+    printf("Введите время t2 (часы):\n");
+    double t2 = getValue();
+    printf("Введите скорость v2 (км/ч):\n");
+    double v2 = getValue();
+    
+    printf("Введите время t3 (часы):\n");
+    double t3 = getValue();
+    printf("Введите скорость v3 (км/ч):\n");
+    double v3 = getValue();
+    
+    double totalPath = calcTotalPath(t1, v1, t2, v2, t3, v3);
+    double halfWayTime = calcHalfWayTime(t1, v1, t2, v2, t3, v3);
+    
+    printf("Общий путь: %.2lf км\n", totalPath);
+    printf("Время для преодоления первой половины пути: %.2lf часов\n", halfWayTime);
+    
+    return 0;
+}
+
+double getValue()
+{
+    double value = 0;
+    double result = scanf("%lf", &value);
+    if (result != 1)
+    {
+        fprintf(stderr, "Input error");
+        exit(1);
+    }
+    return value;
+}
+
+double calcTotalPath(const double t1, const double v1, const double t2, const double v2, const double t3, const double v3)
+{
+    return t1 * v1 + t2 * v2 + t3 * v3;
+}
+
+double calcHalfWayTime(const double t1, const double v1, const double t2, const double v2, const double t3, const double v3) 
+{
+    double totalPath = calcTotalPath(t1, v1, t2, v2, t3, v3);
+    double halfPath = totalPath / 2;
+    double time = 0;
+    double passedPath = 0;
+    
+    // Первый участок
+    double path1 = t1 * v1;
+    if (passedPath + path1 <= halfPath) 
+    {
+        time += t1;
+        passedPath += path1;
+    }
+    else
+    {
+        // Первая половина пути на первом участке
+        double remaining = halfPath - passedPath;
+        time += remaining / v1;
+        return time;
+    }
+    
+    // Второй участок
+    double path2 = t2 * v2;
+    if (passedPath + path2 <= halfPath)
+    {
+        time += t2;
+        passedPath += path2;
+    } 
+    else 
+    {
+        // Первая половина пути на втором участке
+        double remaining = halfPath - passedPath;
+        time += remaining / v2;
+        return time;
+    }
+    
+    // Третий участок
+    double remaining = halfPath - passedPath;
+    time += remaining / v3;
+    
+    return time;
+}
