@@ -97,7 +97,7 @@ void checkPositive(const double value)
 
 double getRecurent(const int i)
 {
-    return -(pow(i + 1, 3) / pow(i, 4));
+    return -(pow(i + 1.0, 3) / pow(i, 4));
 }
 
 double getSumN(const int n)
