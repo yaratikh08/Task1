@@ -1,11 +1,10 @@
+#define _USE_MATH_DEFINES
 #include "Circle.h"
 #include <cmath>
 #include <iostream>
 #include <stdexcept>
 
 using namespace std;
-
-const double PI = 3.14159265358979323846;
 
 Circle::Circle(double x, double y, double r) : centerX(x), centerY(y), radius(r)
 {
@@ -30,12 +29,12 @@ void Circle::setRadius(double r)
 
 double Circle::area() const
 {
-    return PI * radius * radius;
+    return M_PI * radius * radius;
 }
 
 double Circle::circumference() const
 {
-    return 2 * PI * radius;
+    return 2 * M_PI * radius;
 }
 
 void Circle::print() const
