@@ -10,7 +10,7 @@ Sphere::Sphere(const Point& center, double radius) : center(center), radius(radi
 {
     if (radius <= 0)
     {
-        throw invalid_argument("Ð Ð°Ð´Ð¸ÑƒÑ Ð´Ð¾Ð»Ð¶ÐµÐ½ Ð±Ñ‹Ñ‚ÑŒ Ð¿Ð¾Ð»Ð¾Ð¶Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ñ‹Ð¼ Ñ‡Ð¸ÑÐ»Ð¾Ð¼");
+        throw invalid_argument("Ðàäèóñ äîëæåí áûòü ïîëîæèòåëüíûì ÷èñëîì");
     }
 }
 
@@ -21,7 +21,7 @@ void Sphere::setRadius(double radius)
 {
     if (radius <= 0)
     {
-        throw invalid_argument("Ð Ð°Ð´Ð¸ÑƒÑ Ð´Ð¾Ð»Ð¶ÐµÐ½ Ð±Ñ‹Ñ‚ÑŒ Ð¿Ð¾Ð»Ð¾Ð¶Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ñ‹Ð¼ Ñ‡Ð¸ÑÐ»Ð¾Ð¼");
+        throw invalid_argument("Ðàäèóñ äîëæåí áûòü ïîëîæèòåëüíûì ÷èñëîì");
     }
     this->radius = radius;
 }
@@ -39,7 +39,7 @@ double Sphere::volume() const
 string Sphere::toString() const
 {
     ostringstream oss;
-    oss << "Ð¨Ð°Ñ€: Ñ†ÐµÐ½Ñ‚Ñ€ = " << center << ", Ñ€Ð°Ð´Ð¸ÑƒÑ = " << radius;
+    oss << "Øàð: öåíòð = " << center << ", ðàäèóñ = " << radius;
     return oss.str();
 }
 
@@ -47,14 +47,14 @@ istream& Sphere::readFromStream(istream& is, Sphere& sphere)
 {
     Point center;
     double radius;
-    
+
     is >> center >> radius;
-    
+
     if (is)
     {
         sphere = Sphere(center, radius);
     }
-    
+
     return is;
 }
 
