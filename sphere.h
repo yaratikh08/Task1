@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Point.h"
 #include <iostream>
 
@@ -37,7 +37,7 @@ public:
      * @param radius Новый радиус.
      * @throw std::invalid_argument Если радиус не положительный.
      */
-    void setRadius(double radius);
+    void setRadius(const double radius);
 
     /**
      * @brief Вычисляет площадь поверхности шара.

@@ -1,4 +1,4 @@
-#define _USE_MATH_DEFINES
+﻿#define _USE_MATH_DEFINES
 #include "Sphere.h"
 #include <cmath>
 #include <stdexcept>
@@ -47,14 +47,14 @@ istream& Sphere::readFromStream(istream& is, Sphere& sphere)
 {
     Point center;
     double radius;
-    
+
     is >> center >> radius;
-    
+
     if (is)
     {
         sphere = Sphere(center, radius);
     }
-    
+
     return is;
 }
 

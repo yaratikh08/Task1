@@ -1,4 +1,4 @@
-#include "Point.h"
+﻿#include "Point.h"
 #include "Sphere.h"
 #include <iostream>
 #include <locale>
@@ -12,16 +12,16 @@ using namespace std;
 void demonstratePoint()
 {
     cout << "\n=== Демонстрация работы с классом Point ===" << endl;
-    
+
     Point p1(1, 2, 3);
     Point p2(4, 5, 6);
-    
+
     cout << "p1 = " << p1 << endl;
     cout << "p2 = " << p2 << endl;
-    
+
     cout << "p1 == p2? " << (p1 == p2 ? "Да" : "Нет") << endl;
     cout << "p1 != p2? " << (p1 != p2 ? "Да" : "Нет") << endl;
-    
+
     Point p3;
     cout << "\nВведите координаты точки (x y z): ";
     cin >> p3;
@@ -34,19 +34,19 @@ void demonstratePoint()
 void demonstrateSphere()
 {
     cout << "\n=== Демонстрация работы с классом Sphere ===" << endl;
-    
+
     // Создание шара
     Point center(0, 0, 0);
     Sphere sphere1(center, 5.0);
-    
+
     cout << sphere1 << endl;
     cout << "Площадь поверхности: " << sphere1.surfaceArea() << endl;
     cout << "Объем: " << sphere1.volume() << endl;
-    
+
     // Создание шара через конструктор по умолчанию
     Sphere sphere2;
     cout << "\nШар по умолчанию: " << sphere2 << endl;
-    
+
     // Ввод шара с клавиатуры
     cout << "\nВведите шар (центр x y z и радиус): ";
     Sphere sphere3;
@@ -62,7 +62,7 @@ void demonstrateSphere()
 void demonstrateException()
 {
     cout << "\n=== Демонстрация обработки исключений ===" << endl;
-    
+
     try
     {
         Point center(1, 1, 1);
@@ -72,7 +72,7 @@ void demonstrateException()
     {
         cout << "Ошибка: " << e.what() << endl;
     }
-    
+
     try
     {
         Sphere sphere;
@@ -91,7 +91,7 @@ void demonstrateException()
 int main()
 {
     setlocale(LC_ALL, "Russian");
-    
+
     try
     {
         demonstratePoint();
@@ -103,7 +103,7 @@ int main()
         cout << "Необработанная ошибка: " << e.what() << endl;
         return 1;
     }
-    
+
     cout << "\nПрограмма успешно завершена!" << endl;
     return 0;
 }
