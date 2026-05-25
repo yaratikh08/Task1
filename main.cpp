@@ -7,31 +7,31 @@
 using namespace std;
 
 /**
- * @brief Р¤СѓРЅРєС†РёСЏ СЃРѕР·РґР°РЅРёСЏ РѕРєСЂСѓР¶РЅРѕСЃС‚Рё СЃ РІРІРѕРґРѕРј РґР°РЅРЅС‹С… СЃ РєР»Р°РІРёР°С‚СѓСЂС‹.
+ * @brief Функция создания окружности с вводом данных с клавиатуры.
  */
 Circle getCircle();
 
 /**
- * @brief РўРѕС‡РєР° РІС…РѕРґР° РІ РїСЂРѕРіСЂР°РјРјСѓ.
- * @return 0 РІ СЃР»СѓС‡Р°Рµ СѓСЃРїРµС€РЅРѕРіРѕ Р·Р°РІРµСЂС€РµРЅРёСЏ РїСЂРѕРіСЂР°РјРјС‹.
+ * @brief Точка входа в программу.
+ * @return 0 в случае успешного завершения программы.
  */
 int main()
 {
     setlocale(LC_ALL, "Russian");
-    
+
     try
     {
         Circle circle = getCircle();
         circle.print();
-        cout << "РџР»РѕС‰Р°РґСЊ РєСЂСѓРіР°: " << circle.area() << endl;
-        cout << "Р”Р»РёРЅР° РѕРєСЂСѓР¶РЅРѕСЃС‚Рё: " << circle.circumference() << endl;
+        cout << "Площадь круга: " << circle.area() << endl;
+        cout << "Длина окружности: " << circle.circumference() << endl;
     }
     catch (const exception& e)
     {
-        cout << "РћС€РёР±РєР°: " << e.what() << endl;
+        cout << "Ошибка: " << e.what() << endl;
         return 1;
     }
-    
+
     return 0;
 }
 
@@ -40,20 +40,20 @@ Circle getCircle()
     double x = 0.0;
     double y = 0.0;
     double r = 0.0;
-    
-    cout << "Р’РІРµРґРёС‚Рµ РєРѕРѕСЂРґРёРЅР°С‚С‹ С†РµРЅС‚СЂР° РѕРєСЂСѓР¶РЅРѕСЃС‚Рё:" << endl;
+
+    cout << "Введите координаты центра окружности:" << endl;
     cout << "x = ";
     cin >> x;
     cout << "y = ";
     cin >> y;
-    
-    cout << "Р’РІРµРґРёС‚Рµ СЂР°РґРёСѓСЃ РѕРєСЂСѓР¶РЅРѕСЃС‚Рё: ";
+
+    cout << "Введите радиус окружности: ";
     cin >> r;
-    
+
     if (cin.fail())
     {
-        throw invalid_argument("Р’РІРµРґРµРЅРѕ РЅРµРєРѕСЂСЂРµРєС‚РЅРѕРµ Р·РЅР°С‡РµРЅРёРµ");
+        throw invalid_argument("Введено некорректное значение");
     }
-    
+
     return Circle(x, y, r);
 }
