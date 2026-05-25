@@ -1,4 +1,4 @@
-#define _USE_MATH_DEFINES
+ï»¿#define _USE_MATH_DEFINES
 #include "Circle.h"
 #include <cmath>
 #include <iostream>
@@ -10,7 +10,7 @@ Circle::Circle(double x, double y, double r) : centerX(x), centerY(y), radius(r)
 {
     if (r <= 0)
     {
-        throw invalid_argument("Ðàäèóñ äîëæåí áûòü ïîëîæèòåëüíûì ÷èñëîì");
+        throw invalid_argument("Ð Ð°Ð´Ð¸ÑƒÑ Ð´Ð¾Ð»Ð¶ÐµÐ½ Ð±Ñ‹Ñ‚ÑŒ Ð¿Ð¾Ð»Ð¾Ð¶Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ñ‹Ð¼ Ñ‡Ð¸ÑÐ»Ð¾Ð¼");
     }
 }
 
@@ -22,7 +22,7 @@ void Circle::setRadius(double r)
 {
     if (r <= 0)
     {
-        throw invalid_argument("Ðàäèóñ äîëæåí áûòü ïîëîæèòåëüíûì ÷èñëîì");
+        throw invalid_argument("Ð Ð°Ð´Ð¸ÑƒÑ Ð´Ð¾Ð»Ð¶ÐµÐ½ Ð±Ñ‹Ñ‚ÑŒ Ð¿Ð¾Ð»Ð¾Ð¶Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ñ‹Ð¼ Ñ‡Ð¸ÑÐ»Ð¾Ð¼");
     }
     radius = r;
 }
@@ -39,6 +39,6 @@ double Circle::circumference() const
 
 void Circle::print() const
 {
-    cout << "Îêðóæíîñòü ñ öåíòðîì â òî÷êå (" << centerX << ", " << centerY
-        << ") è ðàäèóñîì " << radius << endl;
+    cout << "ÐžÐºÑ€ÑƒÐ¶Ð½Ð¾ÑÑ‚ÑŒ Ñ Ñ†ÐµÐ½Ñ‚Ñ€Ð¾Ð¼ Ð² Ñ‚Ð¾Ñ‡ÐºÐµ (" << centerX << ", " << centerY
+        << ") Ð¸ Ñ€Ð°Ð´Ð¸ÑƒÑÐ¾Ð¼ " << radius << endl;
 }
