@@ -1,4 +1,4 @@
-#define _USE_MATH_DEFINES
+п»ї#define _USE_MATH_DEFINES
 #include "Circle.h"
 #include <iostream>
 #include <locale>
@@ -7,13 +7,13 @@
 using namespace std;
 
 /**
- * @brief Функция создания окружности с вводом данных с клавиатуры.
+ * @brief Р¤СѓРЅРєС†РёСЏ СЃРѕР·РґР°РЅРёСЏ РѕРєСЂСѓР¶РЅРѕСЃС‚Рё СЃ РІРІРѕРґРѕРј РґР°РЅРЅС‹С… СЃ РєР»Р°РІРёР°С‚СѓСЂС‹.
  */
 Circle getCircle();
 
 /**
- * @brief Точка входа в программу.
- * @return 0 в случае успешного завершения программы.
+ * @brief РўРѕС‡РєР° РІС…РѕРґР° РІ РїСЂРѕРіСЂР°РјРјСѓ.
+ * @return 0 РІ СЃР»СѓС‡Р°Рµ СѓСЃРїРµС€РЅРѕРіРѕ Р·Р°РІРµСЂС€РµРЅРёСЏ РїСЂРѕРіСЂР°РјРјС‹.
  */
 int main()
 {
@@ -23,12 +23,12 @@ int main()
     {
         Circle circle = getCircle();
         circle.print();
-        cout << "Площадь круга: " << circle.area() << endl;
-        cout << "Длина окружности: " << circle.circumference() << endl;
+        cout << "РџР»РѕС‰Р°РґСЊ РєСЂСѓРіР°: " << circle.area() << endl;
+        cout << "Р”Р»РёРЅР° РѕРєСЂСѓР¶РЅРѕСЃС‚Рё: " << circle.circumference() << endl;
     }
     catch (const exception& e)
     {
-        cout << "Ошибка: " << e.what() << endl;
+        cout << "РћС€РёР±РєР°: " << e.what() << endl;
         return 1;
     }
 
@@ -41,18 +41,18 @@ Circle getCircle()
     double y = 0.0;
     double r = 0.0;
 
-    cout << "Введите координаты центра окружности:" << endl;
+    cout << "Р’РІРµРґРёС‚Рµ РєРѕРѕСЂРґРёРЅР°С‚С‹ С†РµРЅС‚СЂР° РѕРєСЂСѓР¶РЅРѕСЃС‚Рё:" << endl;
     cout << "x = ";
     cin >> x;
     cout << "y = ";
     cin >> y;
 
-    cout << "Введите радиус окружности: ";
+    cout << "Р’РІРµРґРёС‚Рµ СЂР°РґРёСѓСЃ РѕРєСЂСѓР¶РЅРѕСЃС‚Рё: ";
     cin >> r;
 
     if (cin.fail())
     {
-        throw invalid_argument("Введено некорректное значение");
+        throw invalid_argument("Р’РІРµРґРµРЅРѕ РЅРµРєРѕСЂСЂРµРєС‚РЅРѕРµ Р·РЅР°С‡РµРЅРёРµ");
     }
 
     return Circle(x, y, r);
