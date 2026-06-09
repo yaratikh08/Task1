@@ -13,7 +13,6 @@ private:
 	double radius;
 	double x;
 	double y;
-	double z;
 public:
 	/**
 		@brief конструктор
