@@ -1,10 +1,39 @@
-﻿#include "Point.h"
+#include "Point.h"
 #include "Sphere.h"
 #include <iostream>
 #include <locale>
 #include <stdexcept>
 
 using namespace std;
+
+// Прототипы функций
+void demonstratePoint();
+void demonstrateSphere();
+void demonstrateException();
+
+/**
+ * @brief Точка входа в программу.
+ * @return 0 в случае успешного завершения программы.
+ */
+int main()
+{
+    setlocale(LC_ALL, "Russian");
+
+    try
+    {
+        demonstratePoint();
+        demonstrateSphere();
+        demonstrateException();
+    }
+    catch (const exception& e)
+    {
+        cout << "Необработанная ошибка: " << e.what() << endl;
+        return 1;
+    }
+
+    cout << "\nПрограмма успешно завершена!" << endl;
+    return 0;
+}
 
 /**
  * @brief Функция демонстрации работы с классом Point.
@@ -66,7 +95,7 @@ void demonstrateException()
     try
     {
         Point center(1, 1, 1);
-        Sphere invalidSphere(center, -5.0); // Это вызовет исключение
+        Sphere invalidSphere(center, -5.0);
     }
     catch (const invalid_argument& e)
     {
@@ -76,34 +105,10 @@ void demonstrateException()
     try
     {
         Sphere sphere;
-        sphere.setRadius(-10.0); // Это тоже вызовет исключение
+        sphere.setRadius(-10.0);
     }
     catch (const invalid_argument& e)
     {
         cout << "Ошибка: " << e.what() << endl;
     }
-}
-
-/**
- * @brief Точка входа в программу.
- * @return 0 в случае успешного завершения программы.
- */
-int main()
-{
-    setlocale(LC_ALL, "Russian");
-
-    try
-    {
-        demonstratePoint();
-        demonstrateSphere();
-        demonstrateException();
-    }
-    catch (const exception& e)
-    {
-        cout << "Необработанная ошибка: " << e.what() << endl;
-        return 1;
-    }
-
-    cout << "\nПрограмма успешно завершена!" << endl;
-    return 0;
 }
