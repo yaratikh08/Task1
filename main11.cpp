@@ -15,13 +15,13 @@ int main() {
     double radius = getRadius("Введите радиус: ");
     double x = getRadius("Введите x: ");
     double y = getRadius("Введите y: ");
-    double z = getRadius("Введите z: ");
+
 
     Circle myCircle(radius);
 
     cout << "Длина окружности: " << myCircle.getLenght() << endl; 
     cout << "Площадь круга: " << myCircle.getArea() << endl;       
-    cout << "Координаты: " << x << " " << y << " " << z << endl;   
+    cout << "Координаты: " << x << " " << y <<  endl;   
 
     return 0;
 }
