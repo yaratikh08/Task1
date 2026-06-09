@@ -1,109 +1,69 @@
-#include "Point.h"
-#include "Sphere.h"
 #include <iostream>
-#include <locale>
-#include <stdexcept>
+#include <string>
+#include <cstdlib>
+#include "Sphere.h"
 
 using namespace std;
 
-/**
- * @brief –§—É–Ω–∫—Ü–∏—è –¥–µ–º–æ–Ω—Å—Ç—Ä–∞—Ü–∏–∏ —Ä–∞–±–æ—Ç—ã —Å –∫–ª–∞—Å—Å–æ–º Point.
- */
-void demonstratePoint()
-{
-    cout << "\n=== –î–µ–º–æ–Ω—Å—Ç—Ä–∞—Ü–∏—è —Ä–∞–±–æ—Ç—ã —Å –∫–ª–∞—Å—Å–æ–º Point ===" << endl;
-    
-    Point p1(1, 2, 3);
-    Point p2(4, 5, 6);
-    
-    cout << "p1 = " << p1 << endl;
-    cout << "p2 = " << p2 << endl;
-    
-    cout << "p1 == p2? " << (p1 == p2 ? "–î–∞" : "–ù–µ—Ç") << endl;
-    cout << "p1 != p2? " << (p1 != p2 ? "–î–∞" : "–ù–µ—Ç") << endl;
-    
-    Point p3;
-    cout << "\n–í–≤–µ–¥–∏—Ç–µ –∫–æ–æ—Ä–¥–∏–Ω–∞—Ç—ã —Ç–æ—á–∫–∏ (x y z): ";
-    cin >> p3;
-    cout << "–í—ã –≤–≤–µ–ª–∏: " << p3 << endl;
-}
+/*
+* @brief —˜ËÚ˚‚‡ÂÚ ÁÌ‡˜ÂÌËÂ Ò ÍÎ‡‚Ë‡ÚÛ˚
+* @param report - ÒÚÓÍ‡ ËÌÙÓÏ‡ˆËË
+* @return Ò˜ËÚ‡ÌÌÓÂ ÁÌ‡˜ÂÌËÂ
+*/
+double getValue(const string& report = "");
+
+/*
+* @brief —˜ËÚ˚‚‡ÂÚ ÍÓÓ‰ËÌ‡Ú˚ ÚÓ˜ÍË
+* @return ÚÓ˜Í‡
+*/
+Point getPoint();
 
 /**
- * @brief –§—É–Ω–∫—Ü–∏—è –¥–µ–º–æ–Ω—Å—Ç—Ä–∞—Ü–∏–∏ —Ä–∞–±–æ—Ç—ã —Å –∫–ª–∞—Å—Å–æ–º Sphere.
- */
-void demonstrateSphere()
-{
-    cout << "\n=== –î–µ–º–æ–Ω—Å—Ç—Ä–∞—Ü–∏—è —Ä–∞–±–æ—Ç—ã —Å –∫–ª–∞—Å—Å–æ–º Sphere ===" << endl;
-    
-    // –°–æ–∑–¥–∞–Ω–∏–µ —à–∞—Ä–∞
-    Point center(0, 0, 0);
-    Sphere sphere1(center, 5.0);
-    
-    cout << sphere1 << endl;
-    cout << "–ü–ª–æ—â–∞–¥—å –ø–æ–≤–µ—Ä—Ö–Ω–æ—Å—Ç–∏: " << sphere1.surfaceArea() << endl;
-    cout << "–û–±—ä–µ–º: " << sphere1.volume() << endl;
-    
-    // –°–æ–∑–¥–∞–Ω–∏–µ —à–∞—Ä–∞ —á–µ—Ä–µ–∑ –∫–æ–Ω—Å—Ç—Ä—É–∫—Ç–æ—Ä –ø–æ —É–º–æ–ª—á–∞–Ω–∏—é
-    Sphere sphere2;
-    cout << "\n–®–∞—Ä –ø–æ —É–º–æ–ª—á–∞–Ω–∏—é: " << sphere2 << endl;
-    
-    // –í–≤–æ–¥ —à–∞—Ä–∞ —Å –∫–ª–∞–≤–∏–∞—Ç—É—Ä—ã
-    cout << "\n–í–≤–µ–¥–∏—Ç–µ —à–∞—Ä (—Ü–µ–Ω—Ç—Ä x y z –∏ —Ä–∞–¥–∏—É—Å): ";
-    Sphere sphere3;
-    cin >> sphere3;
-    cout << "–í—ã –≤–≤–µ–ª–∏: " << sphere3 << endl;
-    cout << "–ü–ª–æ—â–∞–¥—å –ø–æ–≤–µ—Ä—Ö–Ω–æ—Å—Ç–∏: " << sphere3.surfaceArea() << endl;
-    cout << "–û–±—ä–µ–º: " << sphere3.volume() << endl;
-}
-
-/**
- * @brief –§—É–Ω–∫—Ü–∏—è –¥–µ–º–æ–Ω—Å—Ç—Ä–∞—Ü–∏–∏ –æ–±—Ä–∞–±–æ—Ç–∫–∏ –∏—Å–∫–ª—é—á–µ–Ω–∏–π.
- */
-void demonstrateException()
-{
-    cout << "\n=== –î–µ–º–æ–Ω—Å—Ç—Ä–∞—Ü–∏—è –æ–±—Ä–∞–±–æ—Ç–∫–∏ –∏—Å–∫–ª—é—á–µ–Ω–∏–π ===" << endl;
-    
-    try
-    {
-        Point center(1, 1, 1);
-        Sphere invalidSphere(center, -5.0); // –≠—Ç–æ –≤—ã–∑–æ–≤–µ—Ç –∏—Å–∫–ª—é—á–µ–Ω–∏–µ
-    }
-    catch (const invalid_argument& e)
-    {
-        cout << "–û—à–∏–±–∫–∞: " << e.what() << endl;
-    }
-    
-    try
-    {
-        Sphere sphere;
-        sphere.setRadius(-10.0); // –≠—Ç–æ —Ç–æ–∂–µ –≤—ã–∑–æ–≤–µ—Ç –∏—Å–∫–ª—é—á–µ–Ω–∏–µ
-    }
-    catch (const invalid_argument& e)
-    {
-        cout << "–û—à–∏–±–∫–∞: " << e.what() << endl;
-    }
-}
-
-/**
- * @brief –¢–æ—á–∫–∞ –≤—Ö–æ–¥–∞ –≤ –ø—Ä–æ–≥—Ä–∞–º–º—É.
- * @return 0 –≤ —Å–ª—É—á–∞–µ —É—Å–ø–µ—à–Ω–æ–≥–æ –∑–∞–≤–µ—Ä—à–µ–Ω–∏—è –ø—Ä–æ–≥—Ä–∞–º–º—ã.
+ * @brief “Ó˜Í‡ ‚ıÓ‰‡ ‚ ÔÓ„‡ÏÏÛ
+ * @return 0, ÂÒÎË ÔÓ„‡ÏÏ‡ ‚˚ÔÓÎÌÂÌ‡ ÍÓÂÍÚÌÓ
  */
 int main()
 {
     setlocale(LC_ALL, "Russian");
-    
-    try
+
+    Point centre = getPoint();
+    double rad = getValue("¬‚Â‰ËÚÂ ‡‰ËÛÒ ¯‡‡: ");
+
+    if (rad <= 0)
     {
-        demonstratePoint();
-        demonstrateSphere();
-        demonstrateException();
+        cout << "Œ¯Ë·Í‡, ‡‰ËÛÒ ‰ÓÎÊÂÌ ·˚Ú¸ ÔÓÎÓÊËÚÂÎ¸Ì˚Ï." << endl;
+        exit(1);
     }
-    catch (const exception& e)
-    {
-        cout << "–ù–µ–æ–±—Ä–∞–±–æ—Ç–∞–Ω–Ω–∞—è –æ—à–∏–±–∫–∞: " << e.what() << endl;
-        return 1;
-    }
-    
-    cout << "\n–ü—Ä–æ–≥—Ä–∞–º–º–∞ —É—Å–ø–µ—à–Ω–æ –∑–∞–≤–µ—Ä—à–µ–Ω–∞!" << endl;
+
+    Sphere mySphere(centre, rad);
+
+    cout << mySphere << endl;
+    cout << "œÎÓ˘‡‰¸ ÔÓ‚ÂıÌÓÒÚË: " << mySphere.CalcArea() << endl;
+    cout << "Œ·˙ÂÏ: " << mySphere.CalcVolume() << endl;
+
     return 0;
+}
+
+double getValue(const string& report)
+{
+    cout << report;
+    double value = 0;
+    cin >> value;
+
+    if (cin.fail())
+    {
+        cout << "Œ¯Ë·Í‡, ‚‚Â‰ÂÌÓ ÌÂ‚ÂÌÓÂ ÁÌ‡˜ÂÌËÂ." << endl;
+        exit(1);
+    }
+
+    return value;
+}
+
+Point getPoint()
+{
+    double x = getValue("¬‚Â‰ËÚÂ x ˆÂÌÚ‡: ");
+    double y = getValue("¬‚Â‰ËÚÂ y ˆÂÌÚ‡: ");
+    double z = getValue("¬‚Â‰ËÚÂ z ˆÂÌÚ‡: ");
+
+    return Point(x, y, z);
 }
