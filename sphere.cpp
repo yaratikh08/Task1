@@ -14,8 +14,15 @@ Sphere::Sphere(const Point& center, double radius) : center(center), radius(radi
     }
 }
 
-Point Sphere::getCenter() const { return center; }
-double Sphere::getRadius() const { return radius; }
+Point Sphere::getCenter() const
+{
+    return center;
+}
+
+double Sphere::getRadius() const
+{
+    return radius;
+}
 
 void Sphere::setRadius(double radius)
 {
