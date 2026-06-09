@@ -1,84 +1,129 @@
-#pragma once
+﻿#pragma once
 #include <iostream>
 
 /**
- * @brief Класс, представляющий точку в трехмерном пространстве.
+ * @brief Класс точки в трехмерном пространстве
  */
 class Point
 {
 private:
-    double x, y, z;
+    double x; // координата X
+    double y; // координата Y
+    double z; // координата Z
 
 public:
     /**
-     * @brief Конструктор для инициализации точки.
-     * @param x Координата x (по умолчанию 0).
-     * @param y Координата y (по умолчанию 0).
-     * @param z Координата z (по умолчанию 0).
+     * @brief Конструктор точки
+     * @param x координата X
+     * @param y координата Y
+     * @param z координата Z
      */
-    Point(double x = 0.0, double y = 0.0, double z = 0.0);
+    Point(const double x = 0, const double y = 0, const double z = 0);
 
     /**
-     * @brief Возвращает координату x.
-     * @return Значение координаты x.
+     * @brief Конструктор копирования
+     * @param other объект для копирования
      */
-    double getX() const;
+    Point(const Point& other);
 
     /**
-     * @brief Возвращает координату y.
-     * @return Значение координаты y.
+     * @brief Конструктор перемещения
+     * @param other объект для перемещения
      */
-    double getY() const;
+    Point(Point&& other);
 
     /**
-     * @brief Возвращает координату z.
-     * @return Значение координаты z.
+     * @brief Деструктор
      */
-    double getZ() const;
+    ~Point() = default;
 
     /**
-     * @brief Сериализация точки в строку.
-     * @return Строковое представление точки.
+     * @brief Оператор присваивания копированием
+     * @param other объект для копирования
+     * @return текущий объект
      */
-    std::string toString() const;
+    Point& operator=(const Point& other);
 
     /**
-     * @brief Чтение точки из стандартного потока ввода.
-     * @param is Входной поток.
-     * @param point Ссылка на точку для заполнения.
-     * @return Входной поток для цепочки операций.
+     * @brief Оператор присваивания перемещением
+     * @param other объект для перемещения
+     * @return текущий объект
      */
-    static std::istream& readFromStream(std::istream& is, Point& point);
+    Point& operator=(Point&& other);
+
+    /**
+     * @brief Получить координату X
+     * @return координата X
+     */
+    double GetX() const;
+
+    /**
+     * @brief Получить координату Y
+     * @return координата Y
+     */
+    double GetY() const;
+
+    /**
+     * @brief Получить координату Z
+     * @return координата Z
+     */
+    double GetZ() const;
+
+    /**
+     * @brief Оператор сравнения на равенство
+     * @param other другая точка
+     * @return true если точки равны
+     */
+    bool operator==(const Point& other) const;
+
+    /**
+     * @brief Оператор сравнения на неравенство
+     * @param other другая точка
+     * @return true если точки не равны
+     */
+    bool operator!=(const Point& other) const;
+
+    /**
+     * @brief Оператор сравнения меньше
+     * @param other другая точка
+     * @return true если текущая точка меньше other
+     */
+    bool operator<(const Point& other) const;
+
+    /**
+     * @brief Оператор сравнения меньше или равно
+     * @param other другая точка
+     * @return true если текущая точка меньше или равна other
+     */
+    bool operator<=(const Point& other) const;
+
+    /**
+     * @brief Оператор сравнения больше
+     * @param other другая точка
+     * @return true если текущая точка больше other
+     */
+    bool operator>(const Point& other) const;
+
+    /**
+     * @brief Оператор сравнения больше или равно
+     * @param other другая точка
+     * @return true если текущая точка больше или равна other
+     */
+    bool operator>=(const Point& other) const;
+
+    /**
+     * @brief Оператор вывода точки в поток
+     * @param os поток вывода
+     * @param point точка
+     * @return поток вывода
+     */
+    friend std::ostream& operator<<(std::ostream& os, const Point& point);
+
+    /**
+     * @brief Оператор ввода точки из потока
+     * @param is поток ввода
+     * @param point точка
+     * @return поток ввода
+     */
+    friend std::istream& operator>>(std::istream& is, Point& point);
 };
-
-/**
- * @brief Оператор вывода точки в поток.
- * @param os Выходной поток.
- * @param point Точка для вывода.
- * @return Выходной поток для цепочки операций.
- */
-std::ostream& operator<<(std::ostream& os, const Point& point);
-
-/**
- * @brief Оператор ввода точки из потока.
- * @param is Входной поток.
- * @param point Точка для заполнения.
- * @return Входной поток для цепочки операций.
- */
-std::istream& operator>>(std::istream& is, Point& point);
-
-/**
- * @brief Оператор сравнения точек (равенство).
- * @param p1 Первая точка.
- * @param p2 Вторая точка.
- * @return true, если точки совпадают, иначе false.
- */
-bool operator==(const Point& p1, const Point& p2);
-
-/**
- * @brief Оператор сравнения точек (неравенство).
- * @param p1 Первая точка.
- * @param p2 Вторая точка.
- * @return true, если точки не совпадают, иначе false.
- */
-bool operator!=(const Point& p1, const Point& p2);
