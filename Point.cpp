@@ -1,55 +1,118 @@
-#define _USE_MATH_DEFINES
-#include "Point.h"
-#include <sstream>
-#include <iomanip>
-#include <limits>
-#include <cmath>
+﻿#include "Point.h"
 
 using namespace std;
 
-Point::Point(double x, double y, double z) : x(x), y(y), z(z) {}
-
-double Point::getX() const { return x; }
-double Point::getY() const { return y; }
-double Point::getZ() const { return z; }
-
-string Point::toString() const
+Point::Point(const double x, const double y, const double z) : x(x), y(y), z(z)
 {
-    ostringstream oss;
-    oss << "(" << x << ", " << y << ", " << z << ")";
-    return oss.str();
 }
 
-istream& Point::readFromStream(istream& is, Point& point)
+Point::Point(const Point& other)
 {
-    double x, y, z;
-    is >> x >> y >> z;
-    if (is)
+    x = other.x;
+    y = other.y;
+    z = other.z;
+}
+
+Point::Point(Point&& other)
+{
+    x = other.x;
+    y = other.y;
+    z = other.z;
+
+    other.x = 0;
+    other.y = 0;
+    other.z = 0;
+}
+
+Point& Point::operator=(const Point& other)
+{
+    if (this == &other)
     {
-        point = Point(x, y, z);
+        return *this;
     }
-    return is;
+
+    x = other.x;
+    y = other.y;
+    z = other.z;
+
+    return *this;
+}
+
+Point& Point::operator=(Point&& other)
+{
+    if (this == &other)
+    {
+        return *this;
+    }
+
+    x = other.x;
+    y = other.y;
+    z = other.z;
+
+    other.x = 0;
+    other.y = 0;
+    other.z = 0;
+
+    return *this;
+}
+
+double Point::GetX() const
+{
+    return x;
+}
+
+double Point::GetY() const
+{
+    return y;
+}
+
+double Point::GetZ() const
+{
+    return z;
+}
+
+bool Point::operator==(const Point& other) const
+{
+    return x == other.x && y == other.y && z == other.z;
+}
+
+bool Point::operator!=(const Point& other) const
+{
+    return !(*this == other);
+}
+
+bool Point::operator<(const Point& other) const
+{
+    if (x != other.x)
+        return x < other.x;
+    if (y != other.y)
+        return y < other.y;
+    return z < other.z;
+}
+
+bool Point::operator<=(const Point& other) const
+{
+    return (*this < other) || (*this == other);
+}
+
+bool Point::operator>(const Point& other) const
+{
+    return !(*this <= other);
+}
+
+bool Point::operator>=(const Point& other) const
+{
+    return !(*this < other);
 }
 
 ostream& operator<<(ostream& os, const Point& point)
 {
-    os << point.toString();
+    os << "(" << point.x << ", " << point.y << ", " << point.z << ")";
     return os;
 }
 
 istream& operator>>(istream& is, Point& point)
 {
-    return Point::readFromStream(is, point);
-}
-
-bool operator==(const Point& p1, const Point& p2)
-{
-    return abs(p1.getX() - p2.getX()) <= numeric_limits<double>::epsilon() &&
-           abs(p1.getY() - p2.getY()) <= numeric_limits<double>::epsilon() &&
-           abs(p1.getZ() - p2.getZ()) <= numeric_limits<double>::epsilon();
-}
-
-bool operator!=(const Point& p1, const Point& p2)
-{
-    return !(p1 == p2);
+    is >> point.x >> point.y >> point.z;
+    return is;
 }
