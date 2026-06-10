@@ -10,15 +10,15 @@ private:
     double x, y, z;
 
 public:
-    Point(double x = 0, double y = 0, double z = 0);
+    Point(const double x = 0, const double y = 0, const double z = 0);
 
     double getX() const;
     double getY() const;
     double getZ() const;
 
-    void setX(double x);
-    void setY(double y);
-    void setZ(double z);
+    void setX(const double x);
+    void setY(const double y);
+    void setZ(const double z);
 
     friend std::ostream& operator<<(std::ostream& os, const Point& point);
 };
