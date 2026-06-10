@@ -15,12 +15,12 @@ private:
 
 public:
     Circle(double radius, const Point& center);
-    Circle(double radius, double x, double y);
+    Circle(const double radius,const double x,const double y);
 
     double getRadius() const;
     Point getCenter() const;
 
-    void setRadius(double radius);
+    void setRadius(const double radius);
     void setCenter(const Point& center);
 
     double getLength() const;
