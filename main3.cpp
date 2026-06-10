@@ -35,7 +35,7 @@ int main()
 double inputDouble(const string& message)
 {
     cout << message;
-    double value;
+    double value=0;
     cin >> value;
 
     if (cin.fail())
