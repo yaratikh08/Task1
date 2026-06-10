@@ -4,7 +4,7 @@
 using namespace std;
 
 Circle::Circle(double radius, const Point& center)
-    : radius(radius), center(center)
+    : center(center), radius(radius)
 {
     if (radius <= 0)
     {
@@ -13,7 +13,7 @@ Circle::Circle(double radius, const Point& center)
 }
 
 Circle::Circle(double radius, double x, double y)
-    : radius(radius), center(Point(x, y, 0))
+    : center(Point(x, y, 0)),  radius(radius)
 {
     if (radius <= 0)
     {
