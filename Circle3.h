@@ -14,7 +14,7 @@ private:
     double radius;
 
 public:
-    Circle(double radius, const Point& center);
+    Circle(const double radius, const Point& center);
     Circle(const double radius,const double x,const double y);
 
     double getRadius() const;
