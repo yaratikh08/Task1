@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Circle::Circle(double radius, const Point& center)
+Circle::Circle(const double radius, const Point& center)
     : center(center), radius(radius)
 {
     if (radius <= 0)
@@ -12,7 +12,7 @@ Circle::Circle(double radius, const Point& center)
     }
 }
 
-Circle::Circle(double radius, double x, double y)
+Circle::Circle(const double radius, const double x, const double y)
     : center(Point(x, y, 0)),  radius(radius)
 {
     if (radius <= 0)
@@ -24,7 +24,7 @@ Circle::Circle(double radius, double x, double y)
 double Circle::getRadius() const { return radius; }
 Point Circle::getCenter() const { return center; }
 
-void Circle::setRadius(double radius)
+void Circle::setRadius(const double radius)
 {
     if (radius <= 0)
     {
