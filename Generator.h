@@ -1,10 +1,9 @@
-﻿#pragma once
+#pragma once
 
 namespace miit::algebra
 {
     /**
      * @brief Абстрактный генератор целочисленных значений.
-     *
      * Базовый класс для алгоритмов заполнения матрицы.
      */
     class Generator
