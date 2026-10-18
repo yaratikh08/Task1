@@ -1,4 +1,5 @@
-﻿#pragma once
+//конкретный генератор, который выдаёт случайные числа в диапазоне.Например, от - 10 до 10.
+#pragma once
 
 #include "Generator.h"
 #include <random>
@@ -6,14 +7,19 @@
 namespace miit::algebra
 {
     /**
-     * @brief Генератор случайных целых чисел.
-     *
-     * Наследуется от Generator и возвращает значения из заданного диапазона.
+     * @brief Генератор случайных целых чисел, наследуется от Generator и возвращает значения из заданного диапазона.
      */
     class RandomGenerator final : public Generator
     {
     private:
+        /**
+         * @brief Распределение целых чисел.
+         */
         std::uniform_int_distribution<int> distribution;
+
+        /**
+         * @brief Движок Mersenne Twister для генерации чисел
+         */
         std::mt19937 engine;
 
     public:
