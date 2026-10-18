@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "Generator.h"
 
@@ -15,71 +15,141 @@ namespace miit::algebra
     class Matrix
     {
     private:
-        std::size_t rowCount;
-        std::size_t columnCount;
-        std::vector<int> data;
 
         /**
-         * @brief Вычисляет плоский индекс элемента матрицы.
-         * @throw std::out_of_range Если строка или столбец выходят за границы.
+         * @brief Количество строк матрицы
          */
-        std::size_t offset(
-            const std::size_t row,
-            const std::size_t column
-        ) const;
+        std::size_t rowCount;
+
+        /**
+         * @brief Количество столбцов матрицы
+         */
+        std::size_t columnCount;
+
+        /**
+         * @brief Данные матрицы, хранятся как вектор строк
+         */
+        std::vector<std::vector<int>> data;
 
     public:
-        /** @brief Создаёт пустую матрицу. */
+        /** @brief Создаёт пустую матрицу. 
+        */
         Matrix();
 
-        /** @brief Создаёт матрицу заданного размера. */
+        /**
+         * @brief Создаёт матрицу заданного размера
+         * @param rows - количество строк
+         * @param columns - количество столбцов
+         */
         Matrix(
             const std::size_t rows,
             const std::size_t columns
         );
 
-        /** @brief Создаёт матрицу и заполняет её значением. */
+        /**
+         * @brief Создаёт матрицу и заполняет её значением
+         * @param rows - количество строк
+         * @param columns - количество столбцов
+         * @param value - значение для заполнения
+         */
         Matrix(
             const std::size_t rows,
             const std::size_t columns,
             const int value
         );
 
+        /**
+         * @brief Конструктор копирования
+         */
         Matrix(const Matrix& other) = default;
+
+        /**
+         * @brief Конструктор перемещения
+         */
         Matrix(Matrix&& other) noexcept = default;
+
+        /**
+         * @brief Оператор копирующего присваивания
+         */
         Matrix& operator=(const Matrix& other) = default;
+
+        /**
+         * @brief Оператор перемещающего присваивания
+         */
         Matrix& operator=(Matrix&& other) noexcept = default;
+
+        /**
+         * @brief Деструктор матрицы
+         */
         ~Matrix() = default;
 
-        /** @brief Возвращает количество строк. */
+        /**
+         * @brief Возвращает количество строк
+         * @return количество строк
+         */
         std::size_t rows() const noexcept;
 
-        /** @brief Возвращает количество столбцов. */
+        /**
+         * @brief Возвращает количество столбцов
+         * @return количество столбцов
+         */
         std::size_t columns() const noexcept;
 
-        /** @brief Проверяет, является ли матрица пустой. */
+        /**
+         * @brief Проверяет, пуста ли матрица
+         * @return true, если матрица пустая
+         */
         bool empty() const noexcept;
 
-        /** @brief Возвращает элемент матрицы по плоскому индексу. */
-        int& operator[](const std::size_t index);
+        /**
+         * @brief Возвращает строку матрицы по номеру
+         * @param row - номер строки
+         * @return ссылка на строку
+         */
+        std::vector<int>& operator[](const std::size_t row);
 
-        /** @brief Возвращает элемент константной матрицы. */
-        const int& operator[](const std::size_t index) const;
+        /**
+         * @brief Возвращает константную строку по номеру
+         * @param row - номер строки
+         * @return константная ссылка на строку
+         */
+        const std::vector<int>& operator[](const std::size_t row) const;
 
-        /** @brief Заполняет матрицу значениями генератора. */
+        /**
+         * @brief Заполняет матрицу значениями генератора
+         * @param generator - генератор значений
+         */
         void fill(Generator& generator);
 
-        /** @brief Удаляет один столбец матрицы. */
+        /**
+         * @brief Удаляет столбец по номеру
+         * @param column - номер столбца
+         */
         void removeColumn(const std::size_t column);
 
-        /** @brief Преобразует матрицу в строку. */
+        /**
+         * @brief Преобразует матрицу в строку
+         * @return строковое представление
+         */
         std::string toString() const;
 
+        /**
+         * @brief Выводит матрицу в поток
+         * @param output - поток вывода
+         * @param matrix - матрица
+         * @return ссылка на поток
+         */
         friend std::ostream& operator<<(
             std::ostream& output,
             const Matrix& matrix
             );
 
+        /**
+         * @brief Считывает матрицу из потока
+         * @param input - поток ввода
+         * @param matrix - матрица
+         * @return ссылка на поток
+         */
         friend std::istream& operator>>(
             std::istream& input,
             Matrix& matrix
