@@ -1,4 +1,4 @@
-﻿#include "Task1.h"
+#include "Task1.h"
 
 namespace miit::algebra
 {
@@ -24,23 +24,19 @@ namespace miit::algebra
         for (std::size_t row = 0; row < rowCount; ++row)
         {
             // Предполагаем, что первый элемент строки — минимальный.
-            int minimum = matrix[row * columnCount];
-            std::size_t minimumIndex = row * columnCount;
+            int minimum = matrix[row][0];
+            std::size_t minimumColumn = 0;
 
-            // Ищем минимальный элемент в строке.
             for (std::size_t column = 1; column < columnCount; ++column)
             {
-                const std::size_t index = row * columnCount + column;
-
-                if (matrix[index] < minimum)
+                if (matrix[row][column] < minimum)
                 {
-                    minimum = matrix[index];
-                    minimumIndex = index;
+                    minimum = matrix[row][column];
+                    minimumColumn = column;
                 }
             }
 
-            // Заменяем минимальный элемент строки нулём.
-            matrix[minimumIndex] = 0;
+            matrix[row][minimumColumn] = 0;
         }
     }
 }
