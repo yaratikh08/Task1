@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "Generator.h"
 #include <functional>
@@ -11,13 +11,15 @@ namespace miit::algebra
     class FunctionGenerator final : public Generator
     {
     private:
+        /**
+         * @brief Функция, вызываемая при каждом generate
+         */
         std::function<int()> function;
 
     public:
         /**
          * @brief Создаёт генератор на основе переданной функции.
          * @param function Функция, возвращающая очередное целое число.
-         * @throw std::invalid_argument Если передана пустая функция.
          */
         explicit FunctionGenerator(const std::function<int()> function);
 
