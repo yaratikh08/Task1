@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "Generator.h"
 #include "Matrix.h"
@@ -15,36 +15,37 @@ namespace miit::algebra
 
     public:
         /**
-         * @brief Создаёт задание и заполняет его матрицу.
+         * @brief Создаёт задание и заполняет матрицу
+         * @param rows - количество строк
+         * @param columns - количество столбцов
+         * @param generator - генератор значений
          */
         Exercise(
             const std::size_t rows,
             const std::size_t columns,
             Generator& generator
-        )
-            : matrix(rows, columns)
-        {
-            matrix.fill(generator);
-        }
+        );
 
+        /**
+         * @brief Виртуальный деструктор задания
+         */
         virtual ~Exercise() = default;
 
-        Exercise(const Exercise&) = delete;
-        Exercise& operator=(const Exercise&) = delete;
-
-        /** @brief Выполняет конкретное задание над матрицей. */
+        /**
+         * @brief Выполняет конкретное задание над матрицей
+         */
         virtual void solve() = 0;
 
-        /** @brief Возвращает константную ссылку на матрицу. */
-        const Matrix& getMatrix() const noexcept
-        {
-            return matrix;
-        }
+        /**
+        * @brief Возвращает константную ссылку на матрицу
+        * @return константная ссылка на матрицу
+        */
+        const Matrix& getMatrix() const noexcept;
 
-        /** @brief Возвращает ссылку на матрицу для изменения. */
-        Matrix& getMatrix() noexcept
-        {
-            return matrix;
-        }
+        /**
+         * @brief Возвращает ссылку на матрицу
+         * @return ссылка на матрицу
+         */
+        Matrix& getMatrix() noexcept;
     };
 }
