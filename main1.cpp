@@ -1,4 +1,4 @@
-﻿#include <clocale>
+#include <clocale>
 #include <iostream>
 #include <limits>
 #include <string>
@@ -10,6 +10,21 @@
 #include "Task2.h"
 
 using namespace miit::algebra;
+
+namespace
+{
+    const std::string PROMPT_ROWS = "Введите количество строк: ";
+    const std::string PROMPT_COLUMNS = "Введите количество столбцов: ";
+    const std::string PROMPT_MODE = "Заполнение: 1 - случайное, 2 - клавиатура, 3 - константа: ";
+    const std::string PROMPT_TASK = "Задание: 1 или 2: ";
+    const std::string PROMPT_ELEMENT = "Введите элемент: ";
+    const std::string PROMPT_CONSTANT = "Введите постоянное значение: ";
+    const std::string ERROR_INPUT = "Ошибка ввода.\n";
+    const std::string ERROR_SIZE = "Размеры матрицы должны быть положительными.\n";
+    const std::string ERROR_MODE = "Неизвестный режим заполнения.\n";
+    const std::string TITLE_TASK1 = "После задания 1 (минимальный элемент каждой строки заменён нулём):\n";
+    const std::string TITLE_TASK2 = "После задания 2 (удалены столбцы с нечётным положительным элементом):\n";
+}
 
 enum class GenerationMode
 {
@@ -33,7 +48,7 @@ bool readInt(const std::string& message, int& value)
         return true;
     }
 
-    std::cout << "Ошибка ввода.\n";
+    std::cout << ERROR_INPUT; 
     std::cin.clear();
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     return false;
@@ -58,20 +73,14 @@ int runTask(
     if (taskMode == TaskMode::First)
     {
         Task1 task(rows, columns, generator);
-        printAndSolve(
-            task,
-            "После задания 1 (минимальный элемент каждой строки заменён нулём):\n"
-        );
+        printAndSolve(task, TITLE_TASK1); 
         return 0;
     }
 
     if (taskMode == TaskMode::Second)
     {
         Task2 task(rows, columns, generator);
-        printAndSolve(
-            task,
-            "После задания 2 (удалены столбцы с нечётным положительным элементом):\n"
-        );
+        printAndSolve(task, TITLE_TASK2); 
         return 0;
     }
 
@@ -87,17 +96,17 @@ int main()
     int modeValue{};
     int taskValue{};
 
-    if (!readInt("Введите количество строк: ", rows) ||
-        !readInt("Введите количество столбцов: ", columns) ||
-        !readInt("Заполнение: 1 - случайное, 2 - клавиатура, 3 - константа: ", modeValue) ||
-        !readInt("Задание: 1 или 2: ", taskValue))
+    if (!readInt(PROMPT_ROWS, rows) ||
+        !readInt(PROMPT_COLUMNS, columns) ||
+        !readInt(PROMPT_MODE, modeValue) ||
+        !readInt(PROMPT_TASK, taskValue))
     {
         return 1;
     }
 
     if (rows <= 0 || columns <= 0)
     {
-        std::cout << "Размеры матрицы должны быть положительными.\n";
+        std::cout << ERROR_SIZE; 
         return 1;
     }
 
@@ -115,7 +124,7 @@ int main()
     {
         FunctionGenerator generator([] {
             int value{};
-            readInt("Введите элемент: ", value);
+            readInt(PROMPT_ELEMENT, value); 
             return value;
             });
         return runTask(rows, columns, generator, taskMode);
@@ -124,7 +133,7 @@ int main()
     {
         int value{};
 
-        if (!readInt("Введите постоянное значение: ", value))
+        if (!readInt(PROMPT_CONSTANT, value))
         {
             return 1;
         }
@@ -133,7 +142,7 @@ int main()
         return runTask(rows, columns, generator, taskMode);
     }
     default:
-        std::cout << "Неизвестный режим заполнения.\n";
+        std::cout << ERROR_MODE;
         return 1;
     }
 }
