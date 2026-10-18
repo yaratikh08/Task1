@@ -1,4 +1,4 @@
-﻿#include "Matrix.h"
+#include "Matrix.h"
 #include <algorithm>
 #include <ios>
 #include <ostream>
@@ -18,7 +18,7 @@ namespace miit::algebra
     Matrix::Matrix(const std::size_t rows, const std::size_t columns)
         : rowCount(rows),
         columnCount(columns),
-        data(rows* columns)
+        data(rows, std::vector<int>(columns))
     {
     }
 
@@ -29,21 +29,8 @@ namespace miit::algebra
     )
         : rowCount(rows),
         columnCount(columns),
-        data(rows* columns, value)
+        data(rows, std::vector<int>(columns, value))
     {
-    }
-
-    std::size_t Matrix::offset(
-        const std::size_t row,
-        const std::size_t column
-    ) const
-    {
-        if (row >= rowCount || column >= columnCount)
-        {
-            throw std::out_of_range("Matrix index is out of range");
-        }
-
-        return row * columnCount + column;
     }
 
     std::size_t Matrix::rows() const noexcept
@@ -61,31 +48,32 @@ namespace miit::algebra
         return data.empty();
     }
 
-    int& Matrix::operator[](const std::size_t index)
+    std::vector<int>& Matrix::operator[](const std::size_t row)
     {
-        if (index >= data.size())
+        if (row >= data.size())
         {
-            throw std::out_of_range("Matrix index is out of range");
+            throw std::out_of_range("Row index is out of range");
         }
-
-        return data[index];
+        return data[row];
     }
 
-    const int& Matrix::operator[](const std::size_t index) const
+    const std::vector<int>& Matrix::operator[](const std::size_t row) const
     {
-        if (index >= data.size())
+        if (row >= data.size())
         {
-            throw std::out_of_range("Matrix index is out of range");
+            throw std::out_of_range("Row index is out of range");
         }
-
-        return data[index];
+        return data[row];
     }
 
     void Matrix::fill(Generator& generator)
     {
-        for (int& value : data)
+        for (auto& row : data)
         {
-            value = generator.generate();
+            for (auto& value : row)
+            {
+                value = generator.generate();
+            }
         }
     }
 
@@ -96,22 +84,12 @@ namespace miit::algebra
             throw std::out_of_range("Column index is out of range");
         }
 
-        std::vector<int> newData;
-        newData.reserve(rowCount * (columnCount - 1));
-
-        for (std::size_t row = 0; row < rowCount; ++row)
+        for (auto& row : data)
         {
-            for (std::size_t currentColumn = 0; currentColumn < columnCount; ++currentColumn)
-            {
-                if (currentColumn != column)
-                {
-                    newData.push_back(data[row * columnCount + currentColumn]);
-                }
-            }
+            row.erase(row.begin() + column);
         }
 
         --columnCount;
-        data = std::move(newData);
     }
 
     std::string Matrix::toString() const
@@ -127,7 +105,7 @@ namespace miit::algebra
                     output << ' ';
                 }
 
-                output << data[row * columnCount + column];
+                output << data[row][column];
             }
 
             if (row + 1 < rowCount)
@@ -147,11 +125,13 @@ namespace miit::algebra
 
     std::istream& operator>>(std::istream& input, Matrix& matrix)
     {
-        for (int& value : matrix.data)
+        for (auto& row : matrix.data)
         {
-            input >> value;
+            for (int& value : row)
+            {
+                input >> value;
+            }
         }
-
         return input;
     }
 }
