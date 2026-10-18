@@ -1,4 +1,4 @@
-﻿#include "Task2.h"
+#include "Task2.h"
 
 namespace miit::algebra
 {
@@ -28,7 +28,7 @@ namespace miit::algebra
 
             for (std::size_t row = 0; row < rowCount; ++row)
             {
-                const int value = matrix[row * matrix.columns() + column];
+                const int value = matrix[row][column];
 
                 // Нечётный положительный элемент.
                 if (value > 0 && value % 2 != 0)
