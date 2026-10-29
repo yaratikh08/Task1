@@ -25,12 +25,12 @@ namespace miit::algebra
     Matrix::Matrix(
         const std::size_t rows,
         const std::size_t columns,
-        const int value
+        const Generator& generator
     )
         : rowCount(rows),
         columnCount(columns),
-        data(rows, std::vector<int>(columns, value))
-    {
+    {    Matrix(rows, coloumns);
+            data.fill(generator);
     }
 
     std::size_t Matrix::rows() const noexcept
