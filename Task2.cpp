@@ -5,7 +5,7 @@ namespace miit::algebra
     Task2::Task2(
         const std::size_t rows,
         const std::size_t columns,
-        Generator& generator
+        const Generator& generator
     )
         : Exercise(rows, columns, generator)
     {
