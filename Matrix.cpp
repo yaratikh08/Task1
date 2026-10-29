@@ -66,7 +66,7 @@ namespace miit::algebra
         return data[row];
     }
 
-    void Matrix::fill(Generator& generator)
+    void Matrix::fill(const Generator& generator)
     {
         for (auto& row : data)
         {
