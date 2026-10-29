@@ -20,7 +20,7 @@ namespace miit::algebra
         Task1(
             const std::size_t rows,
             const std::size_t columns,
-            Generator& generator
+            const Generator& generator
         );
 
         /**
