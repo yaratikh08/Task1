@@ -23,7 +23,7 @@ namespace miit::algebra
         Exercise(
             const std::size_t rows,
             const std::size_t columns,
-            Generator& generator
+            const Generator& generator
         );
 
         /**
