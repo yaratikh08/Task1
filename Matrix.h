@@ -119,7 +119,7 @@ namespace miit::algebra
          * @brief Заполняет матрицу значениями генератора
          * @param generator - генератор значений
          */
-        void fill(Generator& generator);
+        void fill(const Generator& generator);
 
         /**
          * @brief Удаляет столбец по номеру
