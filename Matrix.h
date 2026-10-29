@@ -55,7 +55,7 @@ namespace miit::algebra
         Matrix(
             const std::size_t rows,
             const std::size_t columns,
-            const int value
+            const Generator& generator
         );
 
         /**
