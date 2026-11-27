@@ -2,39 +2,42 @@
 #include <algorithm>
 #include <stdexcept>
 
-const ConfectioneryItem *ConfectioneryFactory::findItemById(const int itemId) const
-{
-    for (const BoxedConfectionery &item : boxedItems)
-    {
-        if (item.getId() == itemId)
-        {
-            return &item;
-        }
-    }
-    for (const PackagedConfectionery &item : packagedItems)
-    {
-        if (item.getId() == itemId)
-        {
-            return &item;
-        }
-    }
-    return nullptr;
-}
-
 void ConfectioneryFactory::addBoxedItem(const BoxedConfectionery &item)
 {
-    if (findItemById(item.getId()) == nullptr)
+    for (const BoxedConfectionery &existing : boxedItems)//коробочные
     {
-        boxedItems.push_back(item);
+        if (existing.getId() == item.getId())
+        {
+            return;
+        }
     }
+    for (const PackagedConfectionery &existing : packagedItems)//пакетированные
+    {
+        if (existing.getId() == item.getId())
+        {
+            return;
+        }
+    }
+    boxedItems.push_back(item);
 }
 
 void ConfectioneryFactory::addPackagedItem(const PackagedConfectionery &item)
 {
-    if (findItemById(item.getId()) == nullptr)
+    for (const BoxedConfectionery &existing : boxedItems)//коробочные
     {
-        packagedItems.push_back(item);
+        if (existing.getId() == item.getId())
+        {
+            return;
+        }
     }
+    for (const PackagedConfectionery &existing : packagedItems)//пакетированные
+    {
+        if (existing.getId() == item.getId())
+        {
+            return;
+        }
+    }
+    packageddItems.push_back(item);
 }
 
 void ConfectioneryFactory::addIngredient(const Ingredient &ingredient)
@@ -44,19 +47,66 @@ void ConfectioneryFactory::addIngredient(const Ingredient &ingredient)
 
 void ConfectioneryFactory::addStoreOrder(const StoreOrder &order)
 {
-    if (findItemById(order.getItemId()) == nullptr)
+    bool itemExists = false;
+
+for (const BoxedConfectionery &item : boxedItems)
+{
+    if (item.getId() == order.getItemId())
+    {
+        itemExists = true;
+        break;
+       
+}
+    if (!itemExists)
+    {
+        for (const PackagedConfectionery &item : packagedItems)
+        {
+            if (item.getId() == order.getItemId())
+            {
+                itemExists = true;
+                break;
+            }
+        }
+    }
+
+    if (!itemExists)
     {
         throw std::invalid_argument("Товар с указанным ID не найден на фабрике!");
     }
+
     storeOrders.push_back(order);
 }
 
 void ConfectioneryFactory::addProductionRecord(const ProductionRecord &record)
 {
-    if (findItemById(record.getItemId()) == nullptr)
+       bool itemExists = false;
+
+    for (const BoxedConfectionery &item : boxedItems)
+    {
+        if (item.getId() == record.getItemId())
+        {
+            itemExists = true;
+            break;
+        }
+    }
+
+    if (!itemExists)
+    {
+        for (const PackagedConfectionery &item : packagedItems)
+        {
+            if (item.getId() == record.getItemId())
+            {
+                itemExists = true;
+                break;
+            }
+        }
+    }
+
+    if (!itemExists)
     {
         throw std::invalid_argument("Товар с указанным ID не найден на фабрике!");
     }
+
     productionRecords.push_back(record);
 }
 
@@ -111,58 +161,91 @@ std::vector<std::string> ConfectioneryFactory::getAssortmentByCategory(const std
 
 std::string ConfectioneryFactory::getMostPopularItemInCategory(const std::string &category) const
 {
-    const ConfectioneryItem *bestItem = nullptr;
+    std::string bestItemName;
+    int bestItemPrice = 0;
     int maxOrdered = -1;
-
-    auto evaluate = [&](const ConfectioneryItem &item)
-    {
-        if (item.getCategory() != category)
-        {
-            return;
-        }
-        int totalOrdered = 0;
-        for (const StoreOrder &order : storeOrders)
-        {
-            if (order.getItemId() == item.getId())
-            {
-                totalOrdered += order.getQuantity();
-            }
-        }
-        if (totalOrdered > maxOrdered)
-        {
-            maxOrdered = totalOrdered;
-            bestItem = &item;
-        }
-    };
 
     for (const BoxedConfectionery &item : boxedItems)
     {
-        evaluate(item);
+        if (item.getCategory() == category)
+        {
+            int totalOrdered = 0;
+            for (const StoreOrder &order : storeOrders)
+            {
+                if (order.getItemId() == item.getId())
+                {
+                    totalOrdered += order.getQuantity();
+                }
+            }
+    
+            if (totalOrdered > maxOrdered)
+            {
+                maxOrdered = totalOrdered;
+                bestItemName = item.getName();
+                bestItemPrice = item.getPrice();
+            }
+        }
     }
     for (const PackagedConfectionery &item : packagedItems)
     {
-        evaluate(item);
-    }
-
-    if (bestItem == nullptr)
+        if (item.getCategory() == category)
+        {
+            int totalOrdered = 0;
+            for (const StoreOrder &order : storeOrders)
+            {
+                if (order.getItemId() == item.getId())
+                {
+                    totalOrdered += order.getQuantity();
+                }
+            }
+    
+            if (totalOrdered > maxOrdered)
+            {
+                maxOrdered = totalOrdered;
+                bestItemName = item.getName();
+                bestItemPrice = item.getPrice();
+            }
+        }
+    }   
+    if (maxOrdered == -1)
     {
         return "Товары данной категории не найдены";
     }
-    return bestItem->getName() + " (заказано: " + std::to_string(maxOrdered) + " ед., цена: " +
-           std::to_string(bestItem->getPrice()) + " руб.)";
-}
 
+    return bestItemName + " (заказано: " + std::to_string(maxOrdered) + " ед., цена: " +
+           std::to_string(bestItemPrice) + " руб.)";
+}
+    
 int ConfectioneryFactory::getProducedValueInPeriod(const std::string &startDate, const std::string &endDate) const
 {
     int totalValue = 0;
     for (const ProductionRecord &rec : productionRecords)
-    {
+        {
         if (rec.getDate() >= startDate && rec.getDate() <= endDate)
         {
-            const ConfectioneryItem *item = findItemById(rec.getItemId());
-            if (item != nullptr)
+            bool itemFound = false;
+
+            for (const BoxedConfectionery &item : boxedItems)
             {
-                totalValue += rec.getQuantity() * item->getPrice();
+                if (item.getId() == rec.getItemId())
+                {
+                    totalValue += rec.getQuantity() * item.getPrice();
+                    itemFound = true;
+                    break;
+                }
+            }
+
+  
+            if (!itemFound)
+            {
+                for (const PackagedConfectionery &item : packagedItems)
+                {
+                    if (item.getId() == rec.getItemId())
+                    {
+                        totalValue += rec.getQuantity() * item.getPrice();
+                        break;
+                    }
+                }
             }
         }
     }
