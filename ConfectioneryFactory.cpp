@@ -37,7 +37,7 @@ void ConfectioneryFactory::addPackagedItem(const PackagedConfectionery &item)
             return;
         }
     }
-    packageddItems.push_back(item);
+    packagedItems.push_back(item);
 }
 
 void ConfectioneryFactory::addIngredient(const Ingredient &ingredient)
@@ -49,14 +49,15 @@ void ConfectioneryFactory::addStoreOrder(const StoreOrder &order)
 {
     bool itemExists = false;
 
-for (const BoxedConfectionery &item : boxedItems)
-{
-    if (item.getId() == order.getItemId())
+    for (const BoxedConfectionery &item : boxedItems)
     {
-        itemExists = true;
-        break;
-       
-}
+        if (item.getId() == order.getItemId())
+        {
+            itemExists = true;
+            break;
+        }
+    }
+
     if (!itemExists)
     {
         for (const PackagedConfectionery &item : packagedItems)
@@ -71,7 +72,8 @@ for (const BoxedConfectionery &item : boxedItems)
 
     if (!itemExists)
     {
-        throw std::invalid_argument("Товар с указанным ID не найден на фабрике!");
+        throw std::invalid_argument(
+            "Товар с указанным ID не найден на фабрике!");
     }
 
     storeOrders.push_back(order);
