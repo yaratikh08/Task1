@@ -19,13 +19,6 @@ private:
     std::vector<StoreOrder> storeOrders;
     std::vector<ProductionRecord> productionRecords;
 
-    /**
-     * @brief Поиск изделия по ID
-     * @param itemId Идентификатор изделия
-     * @return Указатель на базовый класс или nullptr
-     */
-    const ConfectioneryItem *findItemById(const int itemId) const;
-
 public:
     /**
      * @brief Конструктор по умолчанию
