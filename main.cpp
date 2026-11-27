@@ -1,6 +1,4 @@
 #include <iostream>
-#include <vector>
-#include <functional>
 #include "ConfectioneryFactory.h"
 
 /**
@@ -62,15 +60,14 @@ int main()
     std::cout << "\n=== 5. СТОИМОСТЬ ПРОИЗВЕДЕННОГО ТОВАРА (2026-11-01 .. 2026-11-10) ===" << std::endl;
     std::cout << factory.getProducedValueInPeriod("2026-11-01", "2026-11-10") << " руб." << std::endl;
 
-    std::cout << "\n=== ПОЛИМОРФНЫЙ ОБХОД БАЗОВОГО КЛАССА ConfectioneryItem ===" << std::endl;
-    std::vector<std::reference_wrapper<const ConfectioneryItem>> items;
-    items.push_back(std::cref(candies1));
-    items.push_back(std::cref(cookies1));
 
-    for (const ConfectioneryItem &item : items)
-    {
-        std::cout << item.getInfo() << std::endl;
-    }
+    std::cout << "\n=== ИНФОРМАЦИЯ О КОРОБОЧНЫХ ИЗДЕЛИЯХ ===" << std::endl;
+    std::cout << candies1.getInfo() << std::endl;
+    std::cout << candies2.getInfo() << std::endl;
 
+    std::cout << "\n=== ИНФОРМАЦИЯ О ПАКЕТИРОВАННЫХ ИЗДЕЛИЯХ ===" << std::endl;
+    std::cout << cookies1.getInfo() << std::endl;
+    std::cout << cookies2.getInfo() << std::endl;
+    
     return 0;
 }
